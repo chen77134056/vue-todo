@@ -1,0 +1,8 @@
+{
+  "presets": [
+    "env"
+  ],
+  "plugins":[
+    "transform-vue-jsx"  //编译处理vue里面的jsx代码
+  ]
+}
