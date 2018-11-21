@@ -60,7 +60,7 @@ var config={
 if(isDev){
   config.devtool = '#cheap-module-eval-source-map', //默认webpack编译出来页面内容都在js里面不方便用浏览器的审核元素去调试样式，如果希望像常规一样去调试，需设置这里。
   config.devServer={
-      port: 8000,
+      port: 8001,
       host: '0.0.0.0',  //好处是 127.0.0.1或者localhost或者在别电脑访问ip都可以访问到
       overlay: {
           errors: true  //webpack编译过程出错都显示到网页上
