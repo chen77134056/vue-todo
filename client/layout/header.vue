@@ -11,5 +11,5 @@
 </script>
 
 <style scoped>
-  #header{text-align: center;font-size: 30px;color: #000;}
+  #header{text-align: center;font-size: 30px;color: blanchedalmond;}
 </style>

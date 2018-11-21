@@ -1,6 +1,7 @@
 <template>
 
     <div id="inner">
+           <div id="top-img"></div>
            <div>
                <input type="text" :placeholder="xx" v-model="input_value" v-on:keyup.enter="fn">
                <ul style="padding: 20px 0;">
