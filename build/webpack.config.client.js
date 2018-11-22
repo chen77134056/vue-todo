@@ -5,7 +5,7 @@ const HTMLPlugin = require('html-webpack-plugin');
 var ExtractPlugin=require('extract-text-webpack-plugin'); //不是js的东西单独打包出来
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config.base');
-
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const isDev = process.env.NODE_ENV === 'development';  //在package设置的NODE_ENV变量可以用process.env访问的到
 
 
@@ -17,7 +17,8 @@ var defaultPluins=[  //这里是正式和开发环境都需要加载的插件
             NODE_ENV: isDev ? '"development"' : '"production"'
         }
     }),
-    new HTMLPlugin()
+    new HTMLPlugin(),
+    new VueLoaderPlugin()  //Vue-loader在15.x之后都需要加载这个
 ];
 
 
@@ -55,7 +56,8 @@ if(isDev){
         devServer,
         plugins: defaultPluins.concat([  //hot: true ，依赖的模块
             new webpack.HotModuleReplacementPlugin(), //热更新模块
-            new webpack.NoEmitOnErrorsPlugin()
+          //  new webpack.NoEmitOnErrorsPlugin()  //4.x废弃
+
         ])
     })
 
@@ -65,10 +67,10 @@ if(isDev){
     config=merge(baseConfig,{
         entry : {
             app: path.join(__dirname, '../client/index.js'),
-            vendor: ['vue']  //单独把vue模块独立出来
+           // vendor: ['vue']  //单独把vue模块独立出来
         },
         output:{
-            filename : '[name].[chunkhash:8].js'
+            filename : '[name].[hash].js'
         },
         module:{
             rules:[
@@ -89,14 +91,22 @@ if(isDev){
                 }
             ]
         },
+        optimization:{
+            splitChunks:{
+                chunks:'all' ////把第三方插件独立出来的统一放到vendors~app.xxx.js里面
+            },
+            runtimeChunk:true  //将webpack扩展插件独立出来放到runtime~app.xxx.js
+        },
         plugins: defaultPluins.concat([
-            new ExtractPlugin('style.[contentHash:8].css'),  //将css独立出来
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor'   //把第三方插件独立出来的统一放到vendor.xxx.js里面
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'runtime'  //将webpack扩展插件独立出来
-            })
+            new ExtractPlugin('style.[hash].css'),  //将css独立出来
+
+            //以下两个在webpack 4废弃了
+            // new webpack.optimize.CommonsChunkPlugin({
+            //     name: 'vendor'   //把第三方插件独立出来的统一放到vendor.xxx.js里面
+            // }),
+            // new webpack.optimize.CommonsChunkPlugin({
+            //     name: 'runtime'  //将webpack扩展插件独立出来
+            // })
         ])
     });
 

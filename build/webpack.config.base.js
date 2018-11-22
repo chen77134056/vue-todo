@@ -18,6 +18,7 @@ const isDev = process.env.NODE_ENV === 'development';  //在package设置的NODE
 //===============配置====================
 
 var config={
+    mode:process.env.NODE_ENV,  //只接受 'development' 或 'production'
     target: "web",
     entry:path.join(__dirname,'../client/index.js'),
     output: {
@@ -26,6 +27,12 @@ var config={
     },
     module:{
         rules:[
+            // {
+            //     test: /\.(vue|js|jsx)$/,
+            //     loader: 'eslint-loader',
+            //     exclude: /node_modules/,
+            //     enforce: 'pre'   //预处理，以上3种格式，要先经过eslint处理后才让给其他模块处理
+            // },
             {
                 test:/.vue$/,
                 loader:'vue-loader',
@@ -54,7 +61,6 @@ var config={
             }
         ]
     },
-
 }
 
 
