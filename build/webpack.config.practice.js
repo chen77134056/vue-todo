@@ -10,7 +10,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 
 
-
 var defaultPluins=[  //这里是正式和开发环境都需要加载的插件
     new webpack.DefinePlugin({ //vue、react会根据不同环境去选择打包方式，如果是开发模式会包含很多注释以及提示信息，如果在正式环境没必要提示。
         'process.env': {
@@ -18,7 +17,7 @@ var defaultPluins=[  //这里是正式和开发环境都需要加载的插件
         }
     }),
     new HTMLPlugin({
-        template:path.join(__dirname,'template.html')
+        template:path.join(__dirname,'template.html')  //指定一个模板
     }),
     new VueLoaderPlugin(),  //Vue-loader在15.x之后都需要加载这个
 ];
@@ -44,7 +43,7 @@ let config
 
 //判断开发环境 还是 正式环境
 config = merge(baseConfig, {
-    entry:path.join(__dirname,'../practice/index'),
+    entry:path.join(__dirname,'../practice/index'), //我们写的js
     devtool: '#cheap-module-eval-source-map',//默认webpack编译出来页面内容都在js里面不方便用浏览器的审核元素去调试样式，如果希望像常规一样去调试，需设置这里。
     module: {
         rules: [

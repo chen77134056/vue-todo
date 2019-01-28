@@ -18,7 +18,7 @@ const isDev = process.env.NODE_ENV === 'development';  //在package设置的NODE
 //===============配置====================
 
 var config={
-    mode:process.env.NODE_ENV,  //只接受 'development' 或 'production'
+    mode:process.env.NODE_ENV,  //webpack 4.x必填，只接受 'development' 或 'production'
     target: "web",
     entry:path.join(__dirname,'../client/index.js'),
     output: {

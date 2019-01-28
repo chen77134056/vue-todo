@@ -1,12 +1,1 @@
-
-import Vue from 'vue';
-
-new Vue({
-    el:'#root',
-    template:'<div>11</div>'
-});
-
-
-
-
-
+import './instance'  //默认会去找这个目录下的index.js加载
